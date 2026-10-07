@@ -9,7 +9,7 @@ determined by the backend before Llama is called.
 """
 
 from dataclasses import dataclass
-from advisory.validator import validate_advisory
+from app.advisory.validator import validate_advisory
 
 import requests
 
@@ -68,10 +68,6 @@ def generate_advisory(
 
         advisory = data.get("response", "").strip()
 
-        # -------------------------------------------------
-        # Validate Llama output
-        # -------------------------------------------------
-
         if validate_advisory(
             advisory=advisory,
             alert_level=alert_level,
@@ -82,10 +78,6 @@ def generate_advisory(
                 advisory=advisory,
                 source="llama",
             )
-
-        # -------------------------------------------------
-        # Invalid Llama output → deterministic fallback
-        # -------------------------------------------------
 
         return AdvisoryResult(
             advisory=_fallback_advisory(
