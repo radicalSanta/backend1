@@ -1,4 +1,4 @@
-"""
+""" 
 GreenPulse EMS pipeline.
 
 This module orchestrates the complete deterministic EMS flow:
@@ -30,24 +30,23 @@ The pipeline does not calculate ESP32-derived sensor scores.
 Those scores are expected to come from the ESP32.
 """
 
-
 from dataclasses import dataclass
 
-from ems.aqi import calculate_aqi
-from ems.alerts import calculate_alert
-from ems.calculator import calculate_ems
-from ems.dimensions import calculate_dimensions
+from app.ems.aqi import calculate_aqi
+from app.ems.alerts import calculate_alert
+from app.ems.calculator import calculate_ems
+from app.ems.dimensions import calculate_dimensions
 
-from advisory.llama import generate_advisory
-from advisory.playbook import generate_playbook
+from app.advisory.llama import generate_advisory
+from app.advisory.playbook import generate_playbook
 
-from processing.sensor_scores import (
+from app.processing.sensor_scores import (
     calculate_aqi_score,
     calculate_rainfall_score,
 )
 
-from external.open_meteo import fetch_open_meteo
-from external.open_meteo_air import fetch_open_meteo_air
+from app.external.open_meteo import fetch_open_meteo
+from app.external.open_meteo_air import fetch_open_meteo_air
 
 
 # =========================================================
@@ -166,6 +165,7 @@ def resolve_location(telemetry) -> tuple[float, float, str]:
         "FALLBACK",
     )
 
+
 def run_ems_pipeline(
     telemetry,
 ) -> EMSPipelineResult:
@@ -250,21 +250,6 @@ def run_ems_pipeline(
 
     # =====================================================
     # 7. READ ESP32 SCORES
-    #
-    # These values are NOT recalculated by the backend.
-    #
-    # The ESP32 is responsible for:
-    #
-    #     soil_score
-    #     pir_score
-    #     sound_score
-    #     co2_score
-    #     temperature_score
-    #     humidity_score
-    #
-    # temperature_score and humidity_score will be added
-    # to the telemetry model/schema when the firmware is
-    # implemented.
     # =====================================================
 
     required_scores = {
