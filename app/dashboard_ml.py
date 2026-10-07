@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from database import get_db
-from model import SensorReading
-from ml.landslide import predict as predict_landslide
-from ml.pollution import predict as predict_pollution
-from ems.pipeline import run_ems_pipeline
+from app.database import get_db
+from app.model import SensorReading
+from app.ml.landslide import predict as predict_landslide
+from app.ml.pollution import predict as predict_pollution
+from app.ems.pipeline import run_ems_pipeline
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard ML"])
 
