@@ -5,14 +5,14 @@ from fastapi import FastAPI, Depends, HTTPException, WebSocket, WebSocketDisconn
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
-from database import get_db, engine, Base
-from model import SensorReading
-from schema import SensorReadingCreate, SensorReadingResponse
-from mqtt_client import start_mqtt
-import mqtt_client
-from connection_manager import manager
-from ems.pipeline import run_ems_pipeline
-from dashboard_ml import router as dashboard_ml_router
+from app.database import get_db, engine, Base
+from app.model import SensorReading
+from app.schema import SensorReadingCreate, SensorReadingResponse
+from app.mqtt_client import start_mqtt
+import app.mqtt_client as mqtt_client
+from app.connection_manager import manager
+from app.ems.pipeline import run_ems_pipeline
+from app.dashboard_ml import router as dashboard_ml_router
 
 
 # Create database tables if they don't already exist
