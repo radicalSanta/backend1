@@ -4,9 +4,9 @@ import os
 
 import paho.mqtt.client as mqtt
 
-from database import SessionLocal
-from model import SensorReading
-from connection_manager import manager
+from app.database import SessionLocal
+from app.model import SensorReading
+from app.connection_manager import manager
 
 
 MQTT_BROKER = os.getenv("MQTT_BROKER", "192.168.2.229")
