@@ -12,7 +12,7 @@ from mqtt_client import start_mqtt
 import mqtt_client
 from connection_manager import manager
 from ems.pipeline import run_ems_pipeline
-from live_readings import router as live_readings_router
+from dashboard_ml import router as dashboard_ml_router
 
 
 # Create database tables if they don't already exist
@@ -50,7 +50,7 @@ app = FastAPI(
 )
 
 
-app.include_router(live_readings_router)
+app.include_router(dashboard_ml_router)
 
 
 app.add_middleware(
